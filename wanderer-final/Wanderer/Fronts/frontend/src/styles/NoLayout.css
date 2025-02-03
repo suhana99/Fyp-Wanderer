@@ -1,0 +1,16 @@
+.no-layout-page {
+    width: 100%;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #f4f4f4;
+    overflow-y: auto;
+  }
+  
+  .no-layout-page > header,
+  .no-layout-page > footer {
+    display: none !important;
+  }  

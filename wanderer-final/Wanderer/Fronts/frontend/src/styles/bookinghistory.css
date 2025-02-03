@@ -1,0 +1,27 @@
+.booking-history {
+    font-family: Arial, sans-serif;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .booking-item {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+    background-color: #f9f9f9;
+  }
+  
+  .booking-details h3 {
+    margin-top: 0;
+  }
+  
+  .activities-list {
+    list-style-type: disc;
+    padding-left: 20px;
+  }
+  
+  .activities-list li {
+    margin-bottom: 5px;
+  }

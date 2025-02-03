@@ -1,0 +1,136 @@
+/* General styling */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f7f7f7;
+}
+
+/* Dashboard container */
+.dashboard-container {
+  display: flex;
+  height: 100vh;
+}
+
+/* Sidebar styling */
+.sidebar {
+  background-color: #ffb350;
+  color: white;
+  width: 250px;
+  padding: 20px;
+  border-right: 2px solid #e0e0e0;
+}
+
+.sidebar h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.sidebar .nav {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar .nav li {
+  padding: 10px 15px;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  transition: background-color 0.3s;
+}
+
+.sidebar .nav li:hover,
+.sidebar .nav .active {
+  background-color: white;
+  color: #faa935;
+  font-weight: bold;
+}
+
+/* Main content styling */
+.main-content {
+  flex: 1;
+  padding: 20px;
+  background-color: white;
+  overflow-y: auto;
+}
+
+/* Form styling */
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+/* Button styling */
+.addy {
+  background-color: #faa935;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.addy:hover {
+  background-color: #e0663b;
+}
+
+.addy-accept{
+  background-color: #4caf50;
+}
+
+.addy-accept:hover {
+  background-color: #45a049;
+}
+
+.addy-reject {
+  background-color: #f44336;
+}
+
+.addy-reject:hover {
+  background-color: #e41f1f;
+}
+
+.edit-btn{
+  background-color: rgb(84, 84, 240);
+}
+.delete-btn{
+  background-color: #f44336;
+}
+
+/* Table styling */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+table th,
+table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+}
+
+table th {
+  background-color: #faa935;
+  color: white;
+}
+
+table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+table tr:hover {
+  background-color: #f1f1f1;
+}

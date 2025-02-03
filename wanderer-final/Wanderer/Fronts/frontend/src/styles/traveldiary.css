@@ -1,0 +1,198 @@
+/* General Reset */
+body {
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+}
+
+/* Dashboard Layout */
+.dashboard {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 200px;
+  background-color: #faa935;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar button {
+  background: none;
+  color: white;
+  border: none;
+  margin: 10px 0;
+  padding: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.sidebar button.active,
+.sidebar button:hover {
+  background-color: #ff7e01;
+  border-radius: 5px;
+}
+
+.content {
+  flex: 1;
+  padding: 20px;
+  background-color: #f8f9fa;
+}
+
+.panel {
+  max-width: 1200px;
+  margin: 0 auto;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Diary Cards */
+.diary-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 300px;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  margin: 10px;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.diary-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+.diary-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.diary-card h3 {
+  font-size: 20px;
+  margin: 15px;
+  color: #333;
+}
+
+.diary-card p {
+  margin: 0 15px 15px;
+  color: #666;
+  line-height: 1.5;
+}
+
+.diary-author {
+  font-size: 14px;
+  margin: 0 15px 15px;
+  color: #888;
+}
+
+.diary-actions {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px;
+  border-top: 1px solid #eaeaea;
+}
+
+.edit-btn,
+.delete-btn {
+  padding: 8px 12px;
+  font-size: 14px;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.edit-btn {
+  background-color: #4caf50;
+}
+
+.edit-btn:hover {
+  background-color: #45a049;
+}
+
+.delete-btn {
+  background-color: #f44336;
+}
+
+.delete-btn:hover {
+  background-color: #e53935;
+}
+
+/* Flex Display for Multiple Cards */
+.panel .diary-card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+/* Form Styling */
+.enhanced-form .form-group {
+  margin-bottom: 20px;
+}
+
+.enhanced-form label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.enhanced-form .form-control {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.enhanced-form .file-input {
+  border: none;
+}
+
+.enhanced-form .submit-btn {
+  padding: 10px 20px;
+  font-size: 16px;
+  color: white;
+  background-color: #faa935;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.enhanced-form .submit-btn:hover {
+  background-color: #4c70ba;
+}
+
+.error-message {
+  color: red;
+  font-size: 14px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .panel .diary-card-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .diary-card {
+    width: 100%;
+  }
+}

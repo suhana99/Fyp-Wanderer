@@ -1,0 +1,127 @@
+/* Container for the top deals */
+.top-deals-container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .top-deals-header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  
+  .top-deals-header h2 {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .top-deals-header p {
+    font-size: 1rem;
+    color: #777;
+    margin-top: 10px;
+  }
+  
+  /* Wrapper for the deals */
+  .deals-wrapper {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+  }
+  
+  /* Styling for each deal card */
+  .deal-card {
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    background-color: #fff;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .deal-card:hover {
+    transform: scale(1.05);
+  }
+  
+  .deal-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+  }
+  
+  /* Content of each deal card */
+  .deal-content {
+    padding: 15px;
+    text-align: center;
+  }
+  
+  .discount-badge {
+    background-color: #ff8000;
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 50px;
+    padding: 5px 10px;
+    margin-bottom: 10px;
+  }
+  
+  .deal-content h3 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 10px 0;
+    color: #333;
+    text-decoration: none;
+  }
+  .deal-content h3 a,
+  .deal-content h3 .link {
+      text-decoration: none !important; /* Force removal of underline */
+      color: inherit; /* Ensure the color remains consistent */
+  }
+  
+
+  
+  .deal-content h3:hover {
+    color: #ff8000;
+  }
+  
+  .deal-content p {
+    color: #777;
+    font-size: 0.9rem;
+  }
+  
+  /* Responsiveness */
+  @media (max-width: 768px) {
+    .top-deals-header h2 {
+      font-size: 1.75rem;
+    }
+  
+    .top-deals-header p {
+      font-size: 0.9rem;
+    }
+  
+    .deal-image {
+      height: 180px;
+    }
+  
+    .deal-content h3 {
+      font-size: 1.3rem;
+    }
+  
+    .deal-content p {
+      font-size: 0.8rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .deal-image {
+      height: 150px;
+    }
+  
+    .deal-content h3 {
+      font-size: 1.1rem;
+    }
+  
+    .deal-content p {
+      font-size: 0.75rem;
+    }
+  }
+  

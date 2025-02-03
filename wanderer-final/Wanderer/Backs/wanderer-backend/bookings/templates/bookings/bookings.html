@@ -1,0 +1,71 @@
+{% extends 'admins/layout.html' %}
+{% load static %}
+
+{% block title %}
+<title>User Bookings</title>
+{% endblock %}
+
+{% block main-content %}
+
+
+<!-- start of product section -->
+<div class="container my-5">
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-10">
+            {% if items|length < 1%}
+            <h2 class="text-center text-danger my-3">No bookings</h2>
+            {% else %}
+            <h2 class="text-center">Booked packages</h2>
+
+            {% for msg in messages %}
+            {% if msg.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+                <div class="alert alert-success">
+                    {{msg}}
+                </div>
+
+            {% endif %}
+        {% endfor %}
+
+        {% for msg in messages %}
+            {% if msg.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+                <div class="alert alert-danger">
+                    {{msg}}
+                </div>
+
+            {% endif %}
+        {% endfor %}
+
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Full name</th>
+                        <th>Phone Number</th>
+                        <th>Package</th>
+                        <th>No. of people</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for i in items %}
+                    <tr>
+                        <td>{{i.full_name}}</td>
+                        <td>{{i.phone_number}}</td>
+                        <td>{{i.package}}</td>
+                        <td>{{i.number_of_people}}</td>
+                        <td>{{i.booking_date}} </td>    
+                    </tr> 
+                  {% endfor %} 
+                </tbody>
+            </table>
+
+
+            {% endif %}
+        </div>
+    </div>
+  
+</div>
+
+  
+<!-- end of product section -->
+
+{% endblock %}

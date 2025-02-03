@@ -1,0 +1,64 @@
+{% extends 'admins/layout.html' %}
+
+{% load static %}
+
+{% block title %}
+    <title>Reviews</title>
+{% endblock %}
+
+{% block main-content %}
+<h2 class="text-center m-3">All Reviews</h2>
+<div class="container">
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-10">
+            <!-- Display success and error messages -->
+            {% for msg in messages %}
+                {% if msg.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+                    <div class="alert alert-success">
+                        {{ msg }}
+                    </div>
+                {% elif msg.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+                    <div class="alert alert-danger">
+                        {{ msg }}
+                    </div>
+                {% endif %}
+            {% endfor %}
+
+            <table class="table table-bordered text-center">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>User</th>
+                        <th>Package</th>
+                        <th>Rating</th>
+                        <th>Comment</th>
+                        <th>Date Added</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for review in reviews %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ review.user.email }}</td>
+                        <td>{{ review.package.name }}</td>
+                        <td>{{ review.rating }}</td>
+                        <td class="text-start">{{ review.comment }}</td>
+                        <td>{{ review.date_added|date:"Y-m-d H:i" }}</td>
+                        <td>
+                            <a href="/package/reviews/delete/{{ review.id }}" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this review?')">
+                                <i class="fa-solid fa-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="7">No reviews found.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
