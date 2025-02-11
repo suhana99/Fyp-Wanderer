@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useContext, useState } from 'react';
 import { Container, Row, Button } from 'reactstrap';
 import { NavLink, Link, useNavigate } from 'react-router-dom';
-import { FaHeart, FaDollarSign, FaRupeeSign } from 'react-icons/fa'; // Importing icons
 import Logo from '../../assets/images/logo1.png';
 import './header.css';
 import { AuthContext } from '../../context/AuthContext';
