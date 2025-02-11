@@ -13,7 +13,9 @@ class Booking(models.Model):
         ('approved', 'Approved'),
         ('rejected', 'Rejected'),
         ('pending', 'Pending'),
-        ('completed', 'Completed')
+        ('completed', 'Completed'),
+        ('cancelled', 'Cancelled'),
+        ('refunded','Refunded')
     ]
 
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, limit_choices_to={'role': 'user'})

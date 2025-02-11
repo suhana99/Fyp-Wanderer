@@ -159,7 +159,28 @@ class ListBookingsView(APIView):
         serializer = BookingSerializer(bookings, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
+from rest_framework.decorators import api_view, permission_classes
+from django.utils.timezone import now
 
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def cancel_booking(request, booking_id):
+    try:
+        booking = Booking.objects.get(id=booking_id, user=request.user)
+
+        if booking.status == 'cancelled':
+            return Response({"message": "Booking already cancelled"}, status=400)
+
+        if booking.package.start_date <= now().date():
+            return Response({"message": "Cancellation not allowed after booking date"}, status=400)
+
+        booking.cancel_booking(request.data.get("reason", "User requested cancellation"))
+
+        return Response({"message": "Booking cancelled successfully", "status": "cancelled"})
+    
+    except Booking.DoesNotExist:
+        return Response({"message": "Booking not found"}, status=404)
+    
 
 @login_required
 @admin_only

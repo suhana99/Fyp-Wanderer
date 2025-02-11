@@ -50,7 +50,7 @@ INSTALLED_APPS = [
     'bookings',
     'crispy_forms',
     'crispy_bootstrap5',
-    # 'recommendations',
+    'recommendations',  #uncomment after first migration
     'Diary',
     'Calendar'
 ]
@@ -152,7 +152,7 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 AUTH_USER_MODEL = 'users.CustomUser'
 

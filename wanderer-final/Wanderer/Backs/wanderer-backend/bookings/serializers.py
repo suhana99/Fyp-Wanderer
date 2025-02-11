@@ -22,6 +22,7 @@ class BookingHistorySerializer(serializers.ModelSerializer):
     user = serializers.PrimaryKeyRelatedField(queryset=CustomUser.objects.all())
     package = PackageSerializer()
     completion_date = serializers.SerializerMethodField()
+    status=serializers.CharField(source="get_status_display")
 
     class Meta:
         model = Booking

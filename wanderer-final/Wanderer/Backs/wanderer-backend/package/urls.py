@@ -22,5 +22,5 @@ urlpatterns = [
     path('packages/<int:package_id>/reviews/', PackageReviewListCreateView.as_view(), name='package-review-list-create'),
     path('packages/<int:package_id>/reviews/<int:pk>/', ReviewDetailView.as_view(), name='package-reviews-detail'),
     path('customize-package/<int:package_id>/', UserCustomizedPackageView.as_view(), name='customize-package'),
-    path('packages/<int:package_id>/available-hotels/',AvailableHotelsForPackageView.as_view())
+    path('packages/<int:package_id>/available-hotels/',AvailableHotelsForPackageView.as_view()),
 ]

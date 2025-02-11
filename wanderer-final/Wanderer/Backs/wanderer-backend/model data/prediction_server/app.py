@@ -107,7 +107,6 @@ def recommend_packages(data: PredictionRequest):
         cosine_weight = data.cosine_weight
         pearson_weight = data.pearson_weight
 
-
         # Check if the target user exists in the user-item matrix
         if target_user not in user_corr.index:
             # Cold-start: Popularity-based for new users
