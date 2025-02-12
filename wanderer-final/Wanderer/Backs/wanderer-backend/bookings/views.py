@@ -162,24 +162,24 @@ class ListBookingsView(APIView):
 from rest_framework.decorators import api_view, permission_classes
 from django.utils.timezone import now
 
-@api_view(['POST'])
-@permission_classes([IsAuthenticated])
-def cancel_booking(request, booking_id):
-    try:
-        booking = Booking.objects.get(id=booking_id, user=request.user)
+class CancelBookingView(APIView):
+    permission_classes = [IsAuthenticated]
 
-        if booking.status == 'cancelled':
-            return Response({"message": "Booking already cancelled"}, status=400)
+    def post(self, request, booking_id):
+        try:
+            booking = Booking.objects.get(id=booking_id, user=request.user)
 
-        if booking.package.start_date <= now().date():
-            return Response({"message": "Cancellation not allowed after booking date"}, status=400)
+            if booking.cancel_booking(request.data.get("reason", "")):
+                return Response({
+                    "message": "Booking cancelled successfully",
+                    "status": booking.status  # ✅ Include updated status
+                }, status=status.HTTP_200_OK)
 
-        booking.cancel_booking(request.data.get("reason", "User requested cancellation"))
+            return Response({"error": "Cancellation not allowed"}, status=status.HTTP_400_BAD_REQUEST)
 
-        return Response({"message": "Booking cancelled successfully", "status": "cancelled"})
-    
-    except Booking.DoesNotExist:
-        return Response({"message": "Booking not found"}, status=404)
+        except Booking.DoesNotExist:
+            return Response({"error": "Booking not found"}, status=status.HTTP_404_NOT_FOUND)
+
     
 
 @login_required

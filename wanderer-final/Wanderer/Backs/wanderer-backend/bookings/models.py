@@ -4,6 +4,10 @@ from django.conf import settings  # Import settings to use AUTH_USER_MODEL
 # Ensure Package model is correctly imported
 from package.models import Package, Hotel,Activity
 from users.models import CustomUser
+from django.utils import timezone
+import stripe
+
+stripe.api_key = settings.STRIPE_SECRET_KEY 
 
 User = get_user_model()
 
@@ -29,6 +33,7 @@ class Booking(models.Model):
     activity = models.JSONField(default=list)
     stripe_checkout_session_id = models.CharField(max_length=255, null=True, blank=True)
     number_of_people=models.IntegerField(blank=True, null=True)
+    cancellation_reason = models.TextField(blank=True, null=True)
 
     def save(self, *args, **kwargs):
         # Call the superclass save method
@@ -36,6 +41,31 @@ class Booking(models.Model):
 
     def __str__(self):
         return f"{self.user.email} - {self.package.name} - {self.status}"
+    
+    def cancel_booking(self, reason):
+        """ Cancels the booking and triggers a refund if payment was made. """
+        if self.status in ['completed', 'cancelled', 'rejected']:
+            return False  # Cannot cancel after completion or rejection
+        
+        if timezone.now() < self.booking_date:  # Ensure it's before the booking date
+            self.status = 'cancelled'
+            self.cancellation_reason = reason
+            self.save()
+
+            # Process Stripe refund if payment was made
+            if self.stripe_checkout_session_id:
+                try:
+                    session = stripe.checkout.Session.retrieve(self.stripe_checkout_session_id)
+                    payment_intent = session.payment_intent
+                    stripe.Refund.create(payment_intent=payment_intent)
+                    self.status = 'refunded'
+                    self.save()
+                except stripe.error.StripeError as e:
+                    print(f"Stripe refund failed: {e}")
+                    return False
+
+            return True
+        return False
     
 
 

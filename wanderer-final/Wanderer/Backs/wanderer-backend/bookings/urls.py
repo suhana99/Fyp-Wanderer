@@ -11,7 +11,7 @@ urlpatterns = [
     path('', booking),
     path('bookings-history/', BookingHistory.as_view(), name='specific-user-booking-history'),
     path('webhook/stripe/', stripe_webhook, name='stripe-webhook'),
-    path('cancel-booking/<int:booking_id>/', cancel_booking, name='cancel-booking'),
+    path('cancel-booking/<int:booking_id>/', CancelBookingView.as_view(), name='cancel-booking'),
 #     path('create-payment-intent/', PaymentIntentView.as_view(),
 #          name='create_payment_intent'),
 #     path('save-purchase/', PurchaseView.as_view(), name='save_purchase'),
