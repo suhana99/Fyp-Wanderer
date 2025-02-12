@@ -26,8 +26,8 @@ const CancellationForm = ({ bookingId, onCancelSuccess }) => {
         );
 
         if (response.status === 200) {
-            const newStatus = response.data.status;  // ✅ Get updated status
-            onCancelSuccess(bookingId, newStatus);   // ✅ Call parent function
+            const newStatus = response.data.status;  
+            onCancelSuccess(bookingId, newStatus);   //Call parent function
         }
     } catch (err) {
         setError(err.response?.data?.error || "An error occurred.");

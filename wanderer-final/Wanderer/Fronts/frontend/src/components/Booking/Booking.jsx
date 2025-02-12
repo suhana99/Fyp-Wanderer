@@ -51,8 +51,10 @@ const Booking = ({ tour, avgRating, totalPrice, isCustomizedMode, hotels,activit
     }
 
     setBooking((prev) => ({ ...prev, [id]: value }));
-  }, []);
+}, []);
 
+
+  
   const serviceFee = 10;
   const totalAmount = isCustomizedMode
     ? Number(totalPrice) * Number(booking.number_of_people) + Number(serviceFee)
@@ -101,8 +103,22 @@ const Booking = ({ tour, avgRating, totalPrice, isCustomizedMode, hotels,activit
         return;
       }
 
-      setIsLoading(true);
-      setError(null);
+      const phoneRegex = /^[0-9]{10}$/;
+      if (!phoneRegex.test(booking.phone)) {
+        setError("Please enter a valid 10-digit phone number.");
+        setIsSubmitting(false);
+        return;
+      }
+
+      const nameRegex = /^[A-Za-z]{2,} [A-Za-z]{2,}(\s[A-Za-z]+)*$/;
+          if (!nameRegex.test(booking.fullname.trim())) {
+            setError("Please enter a valid full name.");
+            setIsSubmitting(false);
+            return;
+          }
+          setIsLoading(true);
+          setError(null);
+
 
       try {
         const stripe = await stripePromise;
