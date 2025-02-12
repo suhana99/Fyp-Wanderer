@@ -8,48 +8,68 @@ const CancellationForm = ({ bookingId, onCancelSuccess }) => {
 
   const handleCancel = async (e) => {
     e.preventDefault();
-    setError("");
+    setError(""); // Reset error message
+
+    if (!reason.trim()) { // 🔹 Prevent empty reason submission
+        setError("Please enter a reason for cancellation.");
+        return;
+    }
+
     setLoading(true);
 
     try {
-      const token = localStorage.getItem("access_token"); // Assuming JWT token storage
-      const response = await axios.post(
-        `http://127.0.0.1:8000/bookings/cancel-booking/${bookingId}/`,
-        { reason },
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
+        const token = localStorage.getItem("access_token"); 
+        const response = await axios.post(
+            `http://127.0.0.1:8000/bookings/cancel-booking/${bookingId}/`,
+            { reason },
+            { headers: { Authorization: `Bearer ${token}` } }
+        );
 
-      if (response.data.status === "cancelled") {
-        onCancelSuccess(bookingId); // Notify parent of success
-      }
+        if (response.status === 200) {
+            const newStatus = response.data.status;  // ✅ Get updated status
+            onCancelSuccess(bookingId, newStatus);   // ✅ Call parent function
+        }
     } catch (err) {
-      setError(err.response?.data?.message || "An error occurred.");
+        setError(err.response?.data?.error || "An error occurred.");
     }
 
     setLoading(false);
-  };
+};
+
+
+
 
   return (
-    <div className="bg-white p-4 rounded shadow-lg w-96 mt-3">
-      <h2 className="text-lg font-semibold mb-2">Cancel Booking</h2>
-      <form onSubmit={handleCancel}>
-        <textarea
-          className="w-full p-2 border rounded mb-2"
-          placeholder="Enter cancellation reason..."
-          value={reason}
-          onChange={(e) => setReason(e.target.value)}
-          required
-        />
-        {error && <p className="text-red-500">{error}</p>}
-        <button
-          type="submit"
-          className="btn primary__btn" style={{color: "white", marginLeft:"7px", marginTop:"-60px"}}
-          disabled={loading}
-        >
-          {loading ? "Processing..." : "Confirm"}
-        </button>
-      </form>
-    </div>
+
+      <form 
+            onSubmit={handleCancel} 
+            onClick={(e) => e.stopPropagation()} // 🔹 Prevents accidental closing
+            style={{
+              background: "white", 
+              padding: "20px", 
+              borderRadius: "10px", 
+              boxShadow: "0px 4px 10px rgba(0,0,0,0.1)",
+              width: "300px",
+              marginTop: "10px",
+            }}
+          >
+            <label>Cancellation Reason:</label>
+            <input
+              type="text"
+              value={reason}
+              onChange={(e) => setReason(e.target.value)}
+              required
+              style={{
+                width: "100%",
+                padding: "8px",
+                marginBottom: "10px",
+                border: "1px solid #ccc",
+                borderRadius: "5px"
+              }}
+            />
+            <button type="submit" className="btn primary__btn" style={{ padding: "8px 15px", backgroundColor: "red", color: "white", border: "none" }}>Confirm</button>
+        </form>
+
   );
 };
 

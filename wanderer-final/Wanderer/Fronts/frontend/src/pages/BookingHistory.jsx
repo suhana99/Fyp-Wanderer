@@ -40,14 +40,16 @@ const BookingHistory = ({ userId }) => {
     fetchBookings();
   }, []);
 
-  const handleCancelSuccess = (bookingId) => {
+  const handleCancelSuccess = (bookingId, newStatus) => {
     setBookings((prevBookings) =>
-      prevBookings.map((booking) =>
-        booking.id === bookingId ? { ...booking, status: "Cancelled" } : booking
-      )
+        prevBookings.map((booking) =>
+            booking.id === bookingId ? { ...booking, status: newStatus } : booking
+        )
     );
     setShowCancelForm(null);
-  };
+};
+
+
 
   if (loading) {
     return <p>Loading booking history...</p>;
@@ -84,17 +86,24 @@ const BookingHistory = ({ userId }) => {
 
                   {(booking.status === "Approved" || booking.status ==="confirmed") && new Date(booking.booking_date) > new Date() && (
                     <>
-                      <button style={{ backgroundColor: "rgb(185,0,0)", padding: "5px 15px", color: "white", borderRadius: "50px" }}
-                        onClick={() => setShowCancelForm(booking.id)}
+                      <button
+                          style={{
+                              backgroundColor: "rgb(185,0,0)",
+                              padding: "5px 15px",
+                              color: "white",
+                              borderRadius: "50px",
+                              border:"none"
+                          }}
+                          onClick={() => setShowCancelForm(showCancelForm === booking.id ? null : booking.id)}
                       >
-                        Cancel Booking
+                          Cancel Booking
                       </button>
-                      {showCancelForm === booking.id && ( // Ensure only the clicked booking shows the form
-                        <CancellationForm
-                          bookingId={booking.id}
-                          onCancelSuccess={() => handleCancelSuccess(booking.id)}
-                        />
-                      )}
+                      {showCancelForm === booking.id && (
+                              <CancellationForm 
+                                bookingId={booking.id} 
+                                onCancelSuccess={handleCancelSuccess}  // ✅ Pass function
+                              />
+                            )} 
                     </>
                   )}  
                 </div>
