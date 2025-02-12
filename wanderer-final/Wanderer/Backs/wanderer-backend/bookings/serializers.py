@@ -12,7 +12,7 @@ class BookingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Booking
         fields = ['id', 'user', 'package', 'full_name',
-                  'phone_number','booking_date','number_of_people','stripe_checkout_session_id','hotel','activity']
+                  'phone_number','booking_date','number_of_people','stripe_checkout_session_id','hotel','activity','total_amount']
         read_only_fields = ['id', 'user', 'status','stripe_checkout_session_id']
 
 from datetime import timedelta

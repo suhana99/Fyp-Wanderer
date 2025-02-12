@@ -135,7 +135,8 @@ class ConfirmBookingView(APIView):
                         user=user,
                         package=package,
                         status='confirmed',  # Mark as confirmed upon payment success
-                        stripe_checkout_session_id=session_id
+                        stripe_checkout_session_id=session_id,
+                        total_amount=checkout_session.amount_total / 100 
                     )
                     return Response(serializer.data, status=status.HTTP_201_CREATED)
 
@@ -172,7 +173,7 @@ class CancelBookingView(APIView):
             if booking.cancel_booking(request.data.get("reason", "")):
                 return Response({
                     "message": "Booking cancelled successfully",
-                    "status": booking.status  # ✅ Include updated status
+                    "status": booking.status  # Include updated status
                 }, status=status.HTTP_200_OK)
 
             return Response({"error": "Cancellation not allowed"}, status=status.HTTP_400_BAD_REQUEST)

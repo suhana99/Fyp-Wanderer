@@ -18,7 +18,7 @@ class Booking(models.Model):
         ('rejected', 'Rejected'),
         ('pending', 'Pending'),
         ('completed', 'Completed'),
-        ('cancelled', 'Cancelled'),
+        ('cancellation requested', 'Cancellation requested'),
         ('refunded','Refunded')
     ]
 
@@ -34,6 +34,8 @@ class Booking(models.Model):
     stripe_checkout_session_id = models.CharField(max_length=255, null=True, blank=True)
     number_of_people=models.IntegerField(blank=True, null=True)
     cancellation_reason = models.TextField(blank=True, null=True)
+    total_amount = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)  # Stores amount in dollars
+
 
     def save(self, *args, **kwargs):
         # Call the superclass save method
@@ -48,7 +50,7 @@ class Booking(models.Model):
             return False  # Cannot cancel after completion or rejection
         
         if timezone.now() < self.booking_date:  # Ensure it's before the booking date
-            self.status = 'cancelled'
+            self.status = 'cancellation requested'
             self.cancellation_reason = reason
             self.save()
 
@@ -58,7 +60,7 @@ class Booking(models.Model):
                     session = stripe.checkout.Session.retrieve(self.stripe_checkout_session_id)
                     payment_intent = session.payment_intent
                     stripe.Refund.create(payment_intent=payment_intent)
-                    self.status = 'refunded'
+                    self.status = 'cancellation requested'
                     self.save()
                 except stripe.error.StripeError as e:
                     print(f"Stripe refund failed: {e}")
@@ -67,18 +69,3 @@ class Booking(models.Model):
             return True
         return False
     
-
-
-# class Purchase(models.Model):
-#     user = models.ForeignKey(
-#         User, on_delete=models.CASCADE, related_name="purchases")
-#     amount = models.DecimalField(max_digits=10, decimal_places=2)
-#     currency = models.CharField(max_length=10)
-#     payment_status = models.CharField(max_length=50)
-#     stripe_payment_intent = models.CharField(max_length=255, unique=True)
-#     # Store additional booking info (e.g., number of people, date)
-#     booking_details = models.JSONField(null=True, blank=True)
-#     created_at = models.DateTimeField(auto_now_add=True)
-
-#     def __str__(self):
-#         return f"Purchase {self.id} - User {self.user.username} - {self.payment_status}"
