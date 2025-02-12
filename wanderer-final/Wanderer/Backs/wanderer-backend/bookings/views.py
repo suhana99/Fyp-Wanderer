@@ -167,19 +167,22 @@ class CancelBookingView(APIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request, booking_id):
-        try:
-            booking = Booking.objects.get(id=booking_id, user=request.user)
+        data = request.data
+        reason = data.get("reason")
+        account_number = data.get("account_number")
+        account_holder_name = data.get("account_holder_name")
+        bank_name = data.get("bank_name")
 
-            if booking.cancel_booking(request.data.get("reason", "")):
-                return Response({
-                    "message": "Booking cancelled successfully",
-                    "status": booking.status  # Include updated status
-                }, status=status.HTTP_200_OK)
+        if not reason or not account_number or not account_holder_name or not bank_name:
+            return Response({"error": "All fields are required"}, status=status.HTTP_400_BAD_REQUEST)
 
-            return Response({"error": "Cancellation not allowed"}, status=status.HTTP_400_BAD_REQUEST)
+        booking = get_object_or_404(Booking, id=booking_id, user=request.user)
 
-        except Booking.DoesNotExist:
-            return Response({"error": "Booking not found"}, status=status.HTTP_404_NOT_FOUND)
+        if booking.cancel_booking(reason, account_number, account_holder_name, bank_name):
+            return Response({"status": booking.status}, status=status.HTTP_200_OK)
+        
+        return Response({"error": "Cancellation failed"}, status=status.HTTP_400_BAD_REQUEST)
+
 
     
 

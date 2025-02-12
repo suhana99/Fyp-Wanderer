@@ -44,7 +44,11 @@ class Booking(models.Model):
     def __str__(self):
         return f"{self.user.email} - {self.package.name} - {self.status}"
     
-    def cancel_booking(self, reason):
+    account_number = models.CharField(max_length=50, blank=True, null=True)
+    account_holder_name = models.CharField(max_length=255, blank=True, null=True)
+    bank_name = models.CharField(max_length=255, blank=True, null=True)
+
+    def cancel_booking(self, reason, account_number, account_holder_name, bank_name):
         """ Cancels the booking and triggers a refund if payment was made. """
         if self.status in ['completed', 'cancelled', 'rejected']:
             return False  # Cannot cancel after completion or rejection
@@ -52,6 +56,9 @@ class Booking(models.Model):
         if timezone.now() < self.booking_date:  # Ensure it's before the booking date
             self.status = 'cancellation requested'
             self.cancellation_reason = reason
+            self.account_number = account_number  # Store account number
+            self.account_holder_name = account_holder_name  # Store account holder name
+            self.bank_name = bank_name  # Store bank name
             self.save()
 
             # Process Stripe refund if payment was made
@@ -68,4 +75,3 @@ class Booking(models.Model):
 
             return True
         return False
-    

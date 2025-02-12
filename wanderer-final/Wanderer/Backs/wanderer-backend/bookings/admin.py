@@ -1,26 +1,33 @@
 from django.contrib import admin
 from .models import Booking
-# Register your models here.
-
 
 class BookingAdmin(admin.ModelAdmin):
-    # Add filtering options
-    list_filter = ['status']  # Enables filtering by status in the admin
-    list_display = ['user', 'package', 'status',
-                    'booking_date']  # Customize displayed columns
-    search_fields = ['user__username', 'package__name',
-                     'full_name', 'phone_number']  # Add search functionality
-    ordering = ['booking_date']  # Order by booking date by default
+    list_display = (
+        "user",
+        "package",
+        "status",
+        "booking_date",
+        "cancellation_reason",
+        "account_holder_name",  # Added for visibility
+        "bank_name",  # Added for visibility
+        "account_number",  # Added for visibility
+    )
+    search_fields = ("user__email", "package__name", "status", "account_holder_name", "bank_name")
+    list_filter = ("status", "booking_date")
 
+    fieldsets = (
+        ("Booking Information", {
+            "fields": ("user", "package", "status", "booking_date", "hotel", "activity", "number_of_people", "total_amount")
+        }),
+        ("Cancellation & Refund", {  # New section in Admin Panel
+            "fields": ("cancellation_reason", "account_holder_name", "bank_name", "account_number")
+        }),
+        ("Payment Details", {
+            "fields": ("stripe_checkout_session_id",)
+        }),
+    )
 
 admin.site.register(Booking, BookingAdmin)
+
 admin.site.site_header = "Wanderer Admin"
 
-
-# class PurchaseAdmin(admin.ModelAdmin):
-#     list_display = ['user', 'amount', 'currency', 'payment_status',
-#                     'stripe_payment_intent', 'booking_details', 'created_at']
-
-
-# admin.site.register(Purchase, PurchaseAdmin)
-admin.site.site_header = "Wanderer Admin"
