@@ -169,11 +169,6 @@ def recommend_packages(data: PredictionRequest):
 
         # Fetch package details
         recommended_packages = package_df[package_df['name'].isin(combined_scores.index)]
-
-
-        # Debug logs (remove in production)
-        # print(f"Target User: {target_user}")
-        # print(f"User Interacted Packages: {list(user_interacted_packages)}")
         print(f"\n\n\n\n\nCF Scores: {cf_scores}")
         print(f"\n\n\n\nCB Scores: {cb_recommendations}")
         print(f"Combined Scores: {combined_scores}")

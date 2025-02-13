@@ -1,24 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import package1Img from '../../assets/images/packages/Package_1.jpg';
-import package38Img from '../../assets/images/packages/Package_38.jpg';
-import package32Img from '../../assets/images/packages/Package_30.jpg';
-import package3Img from '../../assets/images/packages/Package_3.jpg';
-import package9Img from '../../assets/images/packages/Package_9.jpg';
-import package2Img from '../../assets/images/packages/Package_2.jpg';
 import './featuredtourlist.css';
 import TourCard from '../../shared/TourCard';
 import useFetch from './../../hooks/useFetch';
 import { BASE_URL } from './../../utils/config';
 
-// Map package names to images (if needed for images)
-const packageImages = {
-  'Package 1': package1Img,
-  'Package 38': package38Img,
-  'Package 32': package32Img,
-  'Package 3': package3Img,
-  'Package 9': package9Img,
-  'Package 2': package2Img,
-};
 
 // FeaturedTourList Component
 const PackagesList = () => {
