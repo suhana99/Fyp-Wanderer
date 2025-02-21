@@ -7,7 +7,7 @@ const CommonSection = ({ title }) => {
       <section className="common__section">
          <Container>
             <Row>
-               <Col lg='12'>
+               <Col lg='12'>    
                   <h1>{title}</h1>
                </Col>
             </Row>
