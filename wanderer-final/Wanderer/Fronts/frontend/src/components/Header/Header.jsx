@@ -22,7 +22,7 @@ const Header = () => {
    useEffect(() => {
       const fetchPackages = async () => {
          try {
-            const res = await fetch(`${BASE_URL}/package/packages/`); // Replace with your actual API endpoint
+            const res = await fetch(`${BASE_URL}/package/packages/`);
             const data = await res.json();
             setPackages(data);
          } catch (error) {
@@ -60,24 +60,6 @@ if (user) {
    });
 }
 
-
-   // Toggle currency between NPR and USD
-   // const toggleCurrency = () => {
-   //    setCurrency((prevCurrency) => {
-   //       const newCurrency = prevCurrency === 'NPR' ? 'USD' : 'NPR';
-         
-   //       // Update package prices based on selected currency
-   //       const updatedPackages = packages.map(pkg => ({
-   //          ...pkg,
-   //          price: newCurrency === 'USD'
-   //             ? (pkg.price * conversionRate).toFixed(2)  // Convert to USD
-   //             : (pkg.price / conversionRate).toFixed(2)  // Convert to NPR
-   //       }));
-
-   //       setPackages(updatedPackages);
-   //       return newCurrency;
-   //    });
-   // };
 
    const logout = () => {
       dispatch({ type: 'LOGOUT' });

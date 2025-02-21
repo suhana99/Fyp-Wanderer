@@ -7,15 +7,12 @@ import { useNavigate } from 'react-router-dom';
 const SearchBar = () => {
   const locationRef = useRef('');
   const durationRef = useRef('');
-  // const costRef = useRef(''); // New ref for the cost input
   const navigate = useNavigate();
 
   const searchHandler = async () => {
     const location = locationRef.current.value;
     const duration = durationRef.current.value;
-    // const price = costRef.current.value; // Get the cost value
 
-    // Build the query string with only non-empty fields
     let queryString = '';
 
     if (location) queryString += `location=${location}&`;
