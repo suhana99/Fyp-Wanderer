@@ -123,10 +123,6 @@ class PackageListView(generics.ListAPIView):
     filter_backends = [SearchFilter,OrderingFilter,DjangoFilterBackend]
     filterset_class=PackageFilter
     search_fields = ['location','duration','id'] 
-    # ordering_fields = ['price']  # Define fields for ordering
-    # ordering = ['price']  # Default ordering if none specified
-    # pagination_class = PackagePagination
-
 
 class PackageDetailView(generics.RetrieveAPIView):
     queryset = Package.objects.all()
