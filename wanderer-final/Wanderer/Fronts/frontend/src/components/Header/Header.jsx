@@ -108,13 +108,7 @@ if (user) {
                   {/* ================================ */}
 
                   <div className="nav__right d-flex align-items-center gap-4">
-                     {/* <div className="nav__icons d-flex align-items-center gap-3"> */}
-                        
-                        {/* Currency Change Icon - toggles between Dollar and Rupees */}
-                        {/* <span className="currency__icon" onClick={toggleCurrency} style={{ cursor: 'pointer' }}> */}
-                           {/* {currency === 'USD' ? <FaDollarSign size={24} /> : <FaRupeeSign size={24} />} */}
-                        {/* </span> */}
-                     {/* </div> */}
+                     
 
                      <div className="nav__btns d-flex align-items-center gap-2">
                         {user ? (
