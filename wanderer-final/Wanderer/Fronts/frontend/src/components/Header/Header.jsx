@@ -13,8 +13,6 @@ const Header = () => {
    const navigate = useNavigate();
    const { user, dispatch } = useContext(AuthContext);
    const [packages, setPackages] = useState([]);
-
-   // Fetch packages from backend API
    useEffect(() => {
       const fetchPackages = async () => {
          try {
