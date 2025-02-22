@@ -12,11 +12,7 @@ const Header = () => {
    const menuRef = useRef(null);
    const navigate = useNavigate();
    const { user, dispatch } = useContext(AuthContext);
-   
-   // State for packages and selected currency
    const [packages, setPackages] = useState([]);
-   // const [currency, setCurrency] = useState('NPR'); // Default to NPR
-   // const [conversionRate, setConversionRate] = useState(0.0075); // Default conversion rate for NPR to USD
 
    // Fetch packages from backend API
    useEffect(() => {
